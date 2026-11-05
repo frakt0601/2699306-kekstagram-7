@@ -32,4 +32,23 @@ console.log(extractNumber(2023));
 console.log(extractNumber(-1));
 console.log(extractNumber(1.5));
 
+function getMinutesFromTime(time) {
+  const [hours, minutes] = time.split(':');
+  return Number(hours) * 60 + Number(minutes);
+}
+
+function isMeetingInWorkday(workdayStart, workdayEnd, meetingStart, meetingDuration) {
+  const workdayStartMinutes = getMinutesFromTime(workdayStart);
+  const workdayEndMinutes = getMinutesFromTime(workdayEnd);
+  const meetingStartMinutes = getMinutesFromTime(meetingStart);
+
+  return meetingStartMinutes >= workdayStartMinutes && meetingStartMinutes + meetingDuration <= workdayEndMinutes;
+}
+
+console.log(isMeetingInWorkday('08:00', '17:30', '14:00', 90));
+console.log(isMeetingInWorkday('8:0', '10:0', '8:0', 120));
+console.log(isMeetingInWorkday('08:00', '14:30', '14:00', 90));
+console.log(isMeetingInWorkday('14:00', '17:30', '08:0', 90));
+console.log(isMeetingInWorkday('8:00', '17:30', '08:00', 900));
+
 /* eslint-enable no-console */
